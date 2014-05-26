@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 Fantasy. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "Deck.h"
 
-@interface PlayingDeck : NSObject
+@interface PlayingDeck : Deck
 
 @end
