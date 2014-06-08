@@ -70,7 +70,12 @@
         [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled=!card.isMatched;//禁用已经匹配的卡牌
-        self.scoreLabel.text=[NSString stringWithFormat:@"Score: %d",self.game.score];
+        
+        //测试字体样式
+        NSString * score_txt=[NSString stringWithFormat:@"Score: %d",self.game.score];
+        NSMutableAttributedString * new_scoreText=[[NSMutableAttributedString alloc] initWithString:score_txt];
+        [new_scoreText addAttributes:@{NSUnderlineStyleAttributeName: [NSNumber numberWithInt:NSUnderlineStyleSingle]}range:NSMakeRange(0, score_txt.length)];
+        self.scoreLabel.attributedText=new_scoreText;
     }
 }
 

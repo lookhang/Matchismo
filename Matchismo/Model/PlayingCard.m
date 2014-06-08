@@ -50,14 +50,18 @@
 -(int)match:(NSArray *)otherCards{
     int score=0;
     if ([otherCards count]==1) {
-        PlayingCard *otherCard=[otherCards firstObject];
-        if (otherCard.suit==self.suit) {
-            NSLog(@"花色匹配成功!");
-            score=1;
-        }else if (otherCard.rank==self.rank){
-            NSLog(@"点数匹配成功!");
-            score=4;
+        id card=[otherCards firstObject];
+        if ([card isKindOfClass:card]) {
+            PlayingCard *otherCard=(PlayingCard *)card;
+            if (otherCard.suit==self.suit) {
+                NSLog(@"花色匹配成功!");
+                score=1;
+            }else if (otherCard.rank==self.rank){
+                NSLog(@"点数匹配成功!");
+                score=4;
+            }
         }
+        
     }
     return score;
 }
