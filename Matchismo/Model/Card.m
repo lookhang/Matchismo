@@ -10,6 +10,7 @@
 
 @implementation Card
 
+//与其他卡牌的匹配
 -(int)match:(NSArray *)otherCards{
     int score=0;
     

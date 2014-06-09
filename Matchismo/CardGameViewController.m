@@ -20,6 +20,25 @@
 @end
 
 @implementation CardGameViewController
+- (IBAction)restartGame:(UIButton *)sender {//重新开始游戏
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"重新开始游戏"
+                                                    message:@"你确定要重新开始游戏吗？"
+                                                   delegate:self
+                                          cancelButtonTitle:@"取消"
+                                          otherButtonTitles:@"确定",nil];
+    [alert show];
+    
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"确定"]) {
+        _game=nil;//设置game为空，使重新取牌
+        [self.game resetGame];
+        [self updateUI];
+    }
+}
 
 -(Deck *)deck{
     if (!_deck) {

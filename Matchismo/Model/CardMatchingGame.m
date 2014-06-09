@@ -24,7 +24,7 @@
     return _cards;
 }
 
-
+//初始化桌面上的卡牌，从牌堆里随机抽取一定数量的卡牌
 -(instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck{
     self=[super init];
     if (self) {
@@ -82,5 +82,12 @@ static const int COST_TO_CHOOSE=1;
     }
 }
 
+-(void)resetGame{
+    self.score=0;
+    for (Card *card in self.cards ) {
+        card.chosen=NO;
+        card.matched=NO;
+    }
+}
 
 @end
