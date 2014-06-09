@@ -51,7 +51,7 @@
     int score=0;
     if ([otherCards count]==1) {
         id card=[otherCards firstObject];
-        if ([card isKindOfClass:card]) {
+        if ([card isKindOfClass:[PlayingCard class]]) {
             PlayingCard *otherCard=(PlayingCard *)card;
             if (otherCard.suit==self.suit) {
                 NSLog(@"花色匹配成功!");
