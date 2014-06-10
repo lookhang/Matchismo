@@ -11,35 +11,14 @@
 #import "CardMatchingGame.h"
 
 @interface CardGameViewController ()
-//@property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
-//@property (nonatomic) int flipCount;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong,nonatomic)Deck *deck;
 @property (strong,nonatomic)CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *gameMode;
 @end
 
 @implementation CardGameViewController
-- (IBAction)restartGame:(UIButton *)sender {//重新开始游戏
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"重新开始游戏"
-                                                    message:@"你确定要重新开始游戏吗？"
-                                                   delegate:self
-                                          cancelButtonTitle:@"取消"
-                                          otherButtonTitles:@"确定",nil];
-    [alert show];
-    
-}
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"确定"]) {
-        _game=nil;//设置game为空，使重新取牌
-        [self.game resetGame];
-        [self updateUI];
-    }
-}
-
 -(Deck *)deck{
     if (!_deck) {
         _deck=[PlayingDeck new];
@@ -55,30 +34,14 @@
     return _game;
 }
 
--(void)setFlipCount:(int)flipCount{
-    //flipCount=flipCount;
-    //self.flipsLabel.text=[NSString stringWithFormat:@"Flips:%d",self.flipCount];
-}
 
 - (IBAction)touchCardButton:(UIButton *)sender {
-    /*if ([sender.currentTitle length]) {
-        [sender setBackgroundImage:[UIImage imageNamed:@"cardback"] forState:UIControlStateNormal];
-        [sender setTitle:@"" forState:UIControlStateNormal];
-        self.flipCount++;
-    } else{
-        Card *card=[self.deck drawRandomCard];
-        if (card) {
-            [sender setBackgroundImage:[UIImage imageNamed:@"cardfront"] forState:UIControlStateNormal];
-            [sender setTitle:card.contents forState:UIControlStateNormal];
-            self.flipCount++;
-        }
-        
-    }*/
     
     int choosenButtonIndex=(int)[self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:choosenButtonIndex];
     [self updateUI];
-    //self.flipCount++;
+    
+    NSLog(@"当前模式：%@",self.game.mode ==0 ? @"2-card mode" : @"3-card mode");
 }
 
 -(void)updateUI{
@@ -105,5 +68,33 @@
 -(UIImage *)backgroundImageForCard:(Card *)card{
     return [UIImage imageNamed:card.isChosen?@"cardfront":@"cardback"];
 }
+
+- (IBAction)restartGame:(UIButton *)sender {//重新开始游戏
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"重新开始游戏"
+                                                    message:@"你确定要重新开始游戏吗？"
+                                                   delegate:self
+                                          cancelButtonTitle:@"取消"
+                                          otherButtonTitles:@"确定",nil];
+    [alert show];
+    
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"确定"]) {
+        _game=nil;//设置game为空，使重新取牌
+        _deck=nil;//牌堆必须重置，否则4次以后会无牌可取
+        [self.game resetGame];
+        [self.game setGameMode:self.gameMode.selectedSegmentIndex];
+         NSLog(@"设置模式：%@",self.gameMode.selectedSegmentIndex ==0 ? @"2-card mode" : @"3-card mode");
+        [self updateUI];
+    }
+}
+
+- (IBAction)changeMode:(UISegmentedControl *)sender {
+    [self.game setGameMode:sender.selectedSegmentIndex];
+}
+
 
 @end
