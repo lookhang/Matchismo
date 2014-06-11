@@ -55,10 +55,10 @@
                 PlayingCard *otherCard=(PlayingCard *)card;
                 if (otherCard.suit==self.suit) {
                     NSLog(@"花色匹配成功!");
-                    score+=1;
+                    score=1;
                 }else if (otherCard.rank==self.rank){
                     NSLog(@"点数匹配成功!");
-                    score+=4;
+                    score=4;
                 }
             }
         }

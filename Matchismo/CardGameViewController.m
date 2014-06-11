@@ -16,6 +16,7 @@
 @property (strong,nonatomic)CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameMode;
+@property (weak, nonatomic) IBOutlet UILabel *gameInfo;
 @end
 
 @implementation CardGameViewController
@@ -36,12 +37,12 @@
 
 
 - (IBAction)touchCardButton:(UIButton *)sender {
-    
+    self.gameMode.enabled=NO;
     int choosenButtonIndex=(int)[self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:choosenButtonIndex];
     [self updateUI];
     
-    NSLog(@"当前模式：%@",self.game.mode ==0 ? @"2-card mode" : @"3-card mode");
+    //NSLog(@"当前模式：%@",self.game.mode ==0 ? @"2-card mode" : @"3-card mode");
 }
 
 -(void)updateUI{
@@ -83,6 +84,7 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"确定"]) {
+        self.gameMode.enabled=YES;
         _game=nil;//设置game为空，使重新取牌
         _deck=nil;//牌堆必须重置，否则4次以后会无牌可取
         [self.game resetGame];

@@ -161,10 +161,17 @@
                                     <action selector="touchCardButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="2We-cE-N5I"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yEx-o6-Q2F">
+                                <rect key="frame" x="40" y="444" width="241" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
+                        <outlet property="gameInfo" destination="yEx-o6-Q2F" id="3SQ-pY-n2w"/>
                         <outlet property="gameMode" destination="8ri-9U-Faw" id="lwm-fj-G1q"/>
                         <outlet property="scoreLabel" destination="8bi-g4-naq" id="kQu-K7-2LE"/>
                         <outletCollection property="cardButtons" destination="jP5-uY-Eto" id="ppa-HT-MYo"/>
