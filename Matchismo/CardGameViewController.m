@@ -41,7 +41,7 @@
     int choosenButtonIndex=(int)[self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:choosenButtonIndex];
     [self updateUI];
-    
+    self.gameInfo.text=self.game.info;
     //NSLog(@"当前模式：%@",self.game.mode ==0 ? @"2-card mode" : @"3-card mode");
 }
 
@@ -85,8 +85,8 @@
 {
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"确定"]) {
         self.gameMode.enabled=YES;
-        _game=nil;//设置game为空，使重新取牌
-        _deck=nil;//牌堆必须重置，否则4次以后会无牌可取
+        self.game=nil;//设置game为空，使重新取牌
+        self.deck=nil;//牌堆必须重置，否则4次以后会无牌可取
         [self.game resetGame];
         [self.game setGameMode:self.gameMode.selectedSegmentIndex];
          NSLog(@"设置模式：%@",self.gameMode.selectedSegmentIndex ==0 ? @"2-card mode" : @"3-card mode");

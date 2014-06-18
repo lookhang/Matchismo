@@ -22,4 +22,5 @@
 
 @property (nonatomic,readonly)NSInteger score;
 @property (nonatomic,readonly)NSInteger mode;
+@property (nonatomic,readonly)NSString * info;
 @end

@@ -12,8 +12,8 @@
 
 @property  (nonatomic,readwrite) NSInteger score;
 @property (nonatomic,strong) NSMutableArray * cards;
-
 @property  (nonatomic,readwrite) NSInteger mode;//0：2-card，1：3-card
+@property (nonatomic,readwrite)NSString * info;
 
 @end
 
@@ -62,42 +62,48 @@ static const int COST_TO_CHOOSE=1;
 
 -(void)chooseCardAtIndex:(NSUInteger)index{
     Card *card=[self cardAtIndex:index];//当前选中的牌
-    
+    self.info=card.contents;
     if (!card.isMatched) {//未匹配
         if (card.isChosen) {
             card.chosen=NO;
+            self.info=@"";
             //NSLog(@"已选中，则隐藏！");
         }else{
             NSMutableArray * chosenCards=[[NSMutableArray alloc] init];
             for (Card *otherCard in self.cards ) {
                 if(otherCard.isChosen && !otherCard.isMatched){
                     [chosenCards addObject:otherCard];
+                    self.info=[self.info stringByAppendingString:otherCard.contents];
                 }
             }
             
             if ([chosenCards count]==self.mode+1) {
-                
+                self.info=@"";//置空
                 NSLog(@"Other Card count:%lu",(unsigned long)[chosenCards count]);
                 
                 int matchScore=[card match:chosenCards];
                 
                 NSLog(@"matchScoe by this time:%d",matchScore);
-                if (matchScore) {
+                if (matchScore){
+                    self.info=[self.info stringByAppendingFormat:@"Matched %@ ",card.contents];
                     self.score+=matchScore*MATCH_BONUS;
-                    
                     card.matched=YES;
                     for (Card * otherCard in chosenCards) {
                         otherCard.matched=YES;
+                        self.info=[self.info stringByAppendingString:otherCard.contents];
                     }
-                    
+                    self.info=[self.info stringByAppendingFormat:@"for %d points.",matchScore*MATCH_BONUS];
                 }else{
                     NSLog(@"No matched!");
+                    self.info=[self.info stringByAppendingString:card.contents];
                     self.score-=MISMATCH_PENALTY_SCORE;
                     
                     for (Card * otherCard in chosenCards) {
                         NSLog(@"set match status");
                         otherCard.chosen=NO;
+                        self.info=[self.info stringByAppendingString:otherCard.contents];
                     }
+                    self.info=[self.info stringByAppendingFormat:@"don't match! %d points penalty.",MISMATCH_PENALTY_SCORE];
                 }
             }
 

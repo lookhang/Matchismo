@@ -49,18 +49,41 @@
 
 -(int)match:(NSArray *)otherCards{
     int score=0;
-    if ([otherCards count]) {
-        for (Card * card in otherCards) {
+    long cardCount=[otherCards count];
+    if (cardCount) {
+        for (int i=0; i<cardCount; i++) {
+            Card * card=otherCards[i];//mainCard of otherCards
             if ([card isKindOfClass:[PlayingCard class]]) {
+                //先与当前卡牌比较
                 PlayingCard *otherCard=(PlayingCard *)card;
                 if (otherCard.suit==self.suit) {
                     NSLog(@"花色匹配成功!");
                     score=1;
+                    return score;
                 }else if (otherCard.rank==self.rank){
                     NSLog(@"点数匹配成功!");
                     score=4;
+                    return score;
+                }
+                
+                //再与otherCards中的其他卡牌做比较
+                for (int j=i+1; j<cardCount; j++) {
+                    Card *thisCard=otherCards[j];
+                    if ([thisCard isKindOfClass:[PlayingCard class]]) {
+                        PlayingCard *nextCard=(PlayingCard *)thisCard;
+                        if (otherCard.suit==nextCard.suit) {
+                            NSLog(@"花色匹配成功!");
+                            score=1;
+                            return score;
+                        }else if (otherCard.rank==nextCard.rank){
+                            NSLog(@"点数匹配成功!");
+                            score=4;
+                            return score;
+                        }
+                    }
                 }
             }
+            
         }
     }
     return score;
