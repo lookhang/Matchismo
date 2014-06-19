@@ -5,6 +5,9 @@ Matchismo
 
 iOS学习，纸牌游戏，作业
 
+##### 2014年06月19日 
+1. 根据Lecture 6的内容，将CardGameViewController抽象化，并增加具体实现CardGameViewController
+
 ##### 2014年06月18日 
 1. 完成Assignment 2的Task 5，通过label显示用户的操作
 2. 重新改进了match算法，解决在3-card模式下，已选的两张牌无法匹配的问题

@@ -7,12 +7,10 @@
 //
 
 #import "CardGameViewController.h"
-#import "PlayingDeck.h"
 #import "CardMatchingGame.h"
 
 @interface CardGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (strong,nonatomic)Deck *deck;
 @property (strong,nonatomic)CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameMode;
@@ -20,16 +18,13 @@
 @end
 
 @implementation CardGameViewController
--(Deck *)deck{
-    if (!_deck) {
-        _deck=[PlayingDeck new];
-    }
-    return _deck;
+-(Deck *)createDeck{
+    return nil;
 }
 
 -(CardMatchingGame *)game{
     if (!_game) {
-        _game=[[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:self.deck];
+        _game=[[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:self.createDeck];
     }
     
     return _game;
@@ -86,7 +81,8 @@
     if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:@"确定"]) {
         self.gameMode.enabled=YES;
         self.game=nil;//设置game为空，使重新取牌
-        self.deck=nil;//牌堆必须重置，否则4次以后会无牌可取
+        //self.deck=nil;//牌堆必须重置，否则4次以后会无牌可取
+        self.gameInfo.text=@"";
         [self.game resetGame];
         [self.game setGameMode:self.gameMode.selectedSegmentIndex];
          NSLog(@"设置模式：%@",self.gameMode.selectedSegmentIndex ==0 ? @"2-card mode" : @"3-card mode");

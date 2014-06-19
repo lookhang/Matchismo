@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Deck.h"
 
 @interface CardGameViewController : UIViewController<UIAlertViewDelegate>
+
+-(Deck *)createDeck;//for subclass. protected
 
 @end
