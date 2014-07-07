@@ -8,6 +8,7 @@
 
 #import "CardGameViewController.h"
 #import "CardMatchingGame.h"
+#import "PlayingCardView.h"
 
 @interface CardGameViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
