@@ -5,6 +5,9 @@ Matchismo
 
 iOS学习，纸牌游戏，作业
 
+##### 2015年11月20日 
+改进纸牌匹配的算法，理论可以兼容多种模式
+
 ##### 2014年06月19日 
 1. 根据Lecture 6的内容，将CardGameViewController抽象化，并增加具体实现CardGameViewController
 
