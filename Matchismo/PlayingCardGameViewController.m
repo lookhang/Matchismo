@@ -15,6 +15,7 @@
 @implementation PlayingCardGameViewController
 
 -(Deck *)createDeck{
+    NSLog(@"PlayingCardGameViewController.createDeck");
     return [[PlayingDeck alloc] init];
 }
 

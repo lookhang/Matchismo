@@ -10,7 +10,7 @@
 
 @implementation PlayingCard
 
-@synthesize suit=_suit;
+@synthesize suit=_suit;//如果自定义了存取器，则需要声明
 
 -(NSString *)contents{
     
@@ -51,40 +51,26 @@
     int score=0;
     long cardCount=[otherCards count];
     if (cardCount) {
-        for (int i=0; i<cardCount; i++) {
-            Card * card=otherCards[i];//mainCard of otherCards
-            if ([card isKindOfClass:[PlayingCard class]]) {
-                //先与当前卡牌比较
-                PlayingCard *otherCard=(PlayingCard *)card;
-                if (otherCard.suit==self.suit) {
+        
+        //匹配算法
+        NSMutableArray * desarray=[NSMutableArray arrayWithArray:otherCards];
+        [desarray addObject:self];
+        for (int i=0; i<[desarray count]-1; i++) {
+            PlayingCard * firstCard=(PlayingCard *)desarray[i];
+            for (int j=i+1; j<[desarray count]; j++) {
+                PlayingCard * secCard=(PlayingCard *)desarray[j];
+                if (firstCard.suit==secCard.suit) {
                     NSLog(@"花色匹配成功!");
                     score=1;
                     return score;
-                }else if (otherCard.rank==self.rank){
+                }else if (firstCard.rank==secCard.rank){
                     NSLog(@"点数匹配成功!");
                     score=4;
                     return score;
                 }
-                
-                //再与otherCards中的其他卡牌做比较
-                for (int j=i+1; j<cardCount; j++) {
-                    Card *thisCard=otherCards[j];
-                    if ([thisCard isKindOfClass:[PlayingCard class]]) {
-                        PlayingCard *nextCard=(PlayingCard *)thisCard;
-                        if (otherCard.suit==nextCard.suit) {
-                            NSLog(@"花色匹配成功!");
-                            score=1;
-                            return score;
-                        }else if (otherCard.rank==nextCard.rank){
-                            NSLog(@"点数匹配成功!");
-                            score=4;
-                            return score;
-                        }
-                    }
-                }
             }
-            
         }
+        //by sixer 2015年11月20日
     }
     return score;
 }

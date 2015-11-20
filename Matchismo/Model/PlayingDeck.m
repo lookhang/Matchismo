@@ -15,7 +15,7 @@
     self=[super init];
     
     if (self) {
-        for(NSString *suit in [PlayingCard validSuits]){
+        for(NSString *suit in [PlayingCard validSuits]){//生成牌堆52
             for(NSUInteger rank=1;rank<=[PlayingCard maxRank];rank++){
                 PlayingCard *card=[PlayingCard new];
                 card.rank=rank;
