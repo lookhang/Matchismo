@@ -391,7 +391,7 @@
                             </label>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.026567786521585646" green="0.5900081084193608" blue="0.63311298076923084" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="gameInfo" destination="yEx-o6-Q2F" id="3SQ-pY-n2w"/>
